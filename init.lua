@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- tokyonight colorscheme
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -26,12 +27,12 @@ require("lazy").setup({
       vim.cmd([[colorscheme tokyonight-night]])
     end,
   },
+  
   -- telescope
   { 
     'nvim-telescope/telescope.nvim', tag = '0.1.2',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
-
   { 
     'nvim-telescope/telescope-fzf-native.nvim', 
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
@@ -75,6 +76,13 @@ require("lazy").setup({
     end,
     opts = {},
   },
+
+  {
+    'numToStr/Comment.nvim', 
+    config = function()
+      require("Comment").setup()
+    end
+  }
 
 }, {}
 )
