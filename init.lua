@@ -18,16 +18,16 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- tokyonight colorscheme
   {
-    "folke/tokyonight.nvim",
+    "Mofiqul/dracula.nvim",
     lazy = false,
     priority = 1000,
     --opts = { style="night" },
     config = function()
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight-night]])
+      vim.cmd([[colorscheme dracula]])
     end,
   },
-  
+
   -- telescope
   { 
     'nvim-telescope/telescope.nvim', tag = '0.1.2',
@@ -82,7 +82,18 @@ require("lazy").setup({
     config = function()
       require("Comment").setup()
     end
-  }
+  },
+
+  "github/copilot.vim",
+  
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true },
+  },
+
+  -- lsp shit begins
+  "neovim/nvim-lspconfig",
+
 
 }, {}
 )
@@ -95,7 +106,22 @@ require("lazy").setup({
 -- })
 
 -- configs
-vim.wo.number = true
+vim.wo.number = true -- show line numbers
+vim.o.hlsearch = false -- disable search highlight
+vim.o.mouse = "a" -- enable mouse support
+vim.o.clipboard = "unnamedplus" -- copy/paste to system clipboard
+vim.o.undofile = true -- enable undo file
+vim.o.ignorecase = true -- ignore case when searching
+vim.o.smartcase = true -- ignore case when searching lowercase only
+vim.wo.signcolumn = "yes" -- always show sign column
+
+vim.o.updatetime = 250 -- faster completion
+vim.o.timeout = true -- enable timeout
+vim.o.timeoutlen = 300 -- faster timeout wait time
+
+vim.o.completeopt = "menuone,noselect" -- completion options
+vim.o.termguicolors = true -- enable 24-bit RGB colors
+
 
 -- telescope
 local tc = require('telescope')
@@ -140,3 +166,22 @@ wk.register({
   },
 
 })
+
+-- lualine
+require("lualine").setup({
+  options = {
+    theme = "dracula-nvim",
+  },
+})
+
+
+-- lsp party
+--
+-- deno shit
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+
+require('lspconfig').denols.setup{}
+
+
